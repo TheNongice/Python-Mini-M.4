@@ -1,6 +1,5 @@
 import tkinter as tk
-from tkinter import Canvas, Frame, messagebox
-from tkinter import font
+from tkinter import messagebox
 from tkinter.constants import *
 import math
 import time
