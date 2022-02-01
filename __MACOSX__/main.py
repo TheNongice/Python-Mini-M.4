@@ -32,7 +32,7 @@ except ModuleNotFoundError:
 ################
 def calc1():
     global pos1x,pos2x,pos1y,pos2y
-    calcs1 = tk.Toplevel()
+    calcs1 = tk.Toplevel(root)
     calcs1.title("Geography Calculator :: Distance Calculator")
     calcs1.geometry("800x300")
     calcs1.resizable(0, 0)

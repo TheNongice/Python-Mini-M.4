@@ -1,0 +1,5 @@
+__pycache__/
+pip-log.txt
+*.manifest
+*.spec
+__MACOSX__/
