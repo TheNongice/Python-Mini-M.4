@@ -131,6 +131,6 @@ btn2 = tk.Button(root, text="คำนวณมาตราส่วนแผน
                  bg=config.menu_button, width=50).pack(pady=3)
 btn3 = tk.Button(root, text="ผู้จัดทำ", command=credit, font=config.fonts_menu, fg="#ffffff", bg=config.menu_button,
                  width=50).pack(pady=3)
-vers = tk.Label(root, text=f"Version 1.0.2 {config.status()} ; Made from Python", font=(config.fonts_menu[0], 18),
+vers = tk.Label(root, text=f"Version 1.0.0 {config.status()} ; Made from Python", font=(config.fonts_menu[0], 18),
                 fg="#ffffff", bg="#2D2926").pack(side=BOTTOM, pady=10)
 root.mainloop()
