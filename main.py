@@ -1,11 +1,12 @@
 import math
 import time
+global calcs1
 try:
     import tkinter as tk
     from tkinter import messagebox
     from tkinter.constants import *
 except ModuleNotFoundError:
-    print("Tkinter is not installed in your device!")
+    print("Tkinter is not installed/corrupt in your device!")
     input("Please reinstall!")
 
 try:
@@ -31,25 +32,31 @@ except ModuleNotFoundError:
 #  All screen  #
 ################
 def calc1():
-    global pos1x,pos2x,pos1y,pos2y
+    global pos1x,pos2x,pos1y,pos2y,result_text
     calcs1 = tk.Toplevel()
     calcs1.title("Geography Calculator :: Distance Calculator")
     calcs1.geometry("800x300")
     calcs1.resizable(0, 0)
     calcs1.configure(background=config.menu_bg)
-    tell_loc1 = tk.Label(calcs1, text="จุดที่ 1:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).place(
-        x=125, y=50)
-    tell_loc2 = tk.Label(calcs1, text="จุดที่ 2:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).place(
-        x=125, y=100)
+    Frame = tk.Frame(calcs1,bg=config.menu_button,bd="5")
+    Frame.pack(pady=45)
+    tell_loc1 = tk.Label(Frame, text="จุดที่ 1:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,row=0,padx=8)
+    tell_loc2 = tk.Label(Frame, text="จุดที่ 2:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,row=1)
     pos1x = tk.StringVar() ; pos1y = tk.StringVar()
     pos2x = tk.StringVar() ; pos2y = tk.StringVar()
-    loc1x = tk.Entry(calcs1, font=config.fonts_menu, width=15,textvariable=pos1x).place(x=200, y=50)
-    loc1y = tk.Entry(calcs1, font=config.fonts_menu, width=15,textvariable=pos1y).place(x=365, y=50)
-    loc2x = tk.Entry(calcs1, font=config.fonts_menu, width=15,textvariable=pos2x).place(x=200, y=100)
-    loc2y = tk.Entry(calcs1, font=config.fonts_menu, width=15,textvariable=pos2y).place(x=365, y=100)
-    confirm_btn = tk.Button(calcs1,text="คำนวณ",command=lambda: assets.calc.havershow(pos1x.get(),pos1y.get(),pos2x.get(),pos2y.get()),bg=config.confirm_btn, fg="#000", font=config.fonts_menu).place(x=560,
-                                                                                                                 y=70)
+    loc1x = tk.Entry(Frame, font=config.fonts_menu, width=15,textvariable=pos1x).grid(column=1,row=0)
+    loc1y = tk.Entry(Frame, font=config.fonts_menu, width=15,textvariable=pos1y).grid(column=2,row=0,padx=8)
+    loc2x = tk.Entry(Frame, font=config.fonts_menu, width=15,textvariable=pos2x).grid(column=1,row=1)
+    loc2y = tk.Entry(Frame, font=config.fonts_menu, width=15,textvariable=pos2y).grid(column=2,row=1)
+    confirm_btn = tk.Button(Frame,text="คำนวณ",command=lambda: returnHs(pos1x.get(),pos1y.get(),pos2x.get(),pos2y.get()),bg=config.confirm_btn, fg="#000", font=config.fonts_menu).grid(row=3,column=1,sticky=SE,pady=3)
+    result_text = tk.Label(calcs1,text="",bg=config.menu_bg,font=config.fonts_menu,fg="#fff")
+    result_text.pack(side=BOTTOM,pady=20)
+    
 
+def returnHs(x1,y1,x2,y2):
+    result = assets.calc.havershow(x1,y1,x2,y2)
+    result_text.configure(text=f"{assets.calc.havershow(x1,y1,x2,y2)} km")
+    
 def gd_calc():
     gd_cal = tk.Tk()
     gd_cal.title("Geography Calculator :: Geography Map")
@@ -63,7 +70,7 @@ def credit():
     credits.geometry("800x500")
     credits.resizable(0, 0)
     credits.configure(background="#000")  # BG this dialogs
-    messagebox.showinfo("Note", "อย่าลืมแก้หน้า Credit ต่อ")
+    #messagebox.showinfo("Note", "อย่าลืมแก้หน้า Credit ต่อ")
 
     title1 = tk.Label(credits,
                       text="จัดทำโดย....",
