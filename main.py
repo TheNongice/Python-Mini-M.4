@@ -1,6 +1,5 @@
 import math
 import time
-global calcs1
 try:
     import tkinter as tk
     from tkinter import messagebox

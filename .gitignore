@@ -3,3 +3,4 @@ pip-log.txt
 *.manifest
 *.spec
 __MACOSX__/
+__MACOSX__/__pycache__
