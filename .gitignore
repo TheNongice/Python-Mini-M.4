@@ -4,3 +4,4 @@ pip-log.txt
 *.spec
 __MACOSX__/
 __MACOSX__/__pycache__
+assets/__pycache__

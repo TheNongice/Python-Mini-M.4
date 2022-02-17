@@ -1,5 +1,6 @@
 import math
 import time
+
 try:
     import tkinter as tk
     from tkinter import messagebox
@@ -27,35 +28,44 @@ except ModuleNotFoundError:
                          "ไม่พบโมดูล PIL (Pillow) หรือ haversine กรุณาตรวจสอบ/ติดตั้งใหม่อีกครั้ง")
     exit()
 
+
 ################
 #  All screen  #
 ################
 def calc1():
-    global pos1x,pos2x,pos1y,pos2y,result_text
+    global pos1x, pos2x, pos1y, pos2y, result_text
     calcs1 = tk.Toplevel()
     calcs1.title("Geography Calculator :: Distance Calculator")
     calcs1.geometry("800x300")
     calcs1.resizable(0, 0)
     calcs1.configure(background=config.menu_bg)
-    Frame = tk.Frame(calcs1,bg=config.menu_button,bd="5")
+    Frame = tk.Frame(calcs1, bg=config.menu_button, bd="5")
     Frame.pack(pady=45)
-    tell_loc1 = tk.Label(Frame, text="จุดที่ 1:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,row=0,padx=8)
-    tell_loc2 = tk.Label(Frame, text="จุดที่ 2:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,row=1)
-    pos1x = tk.StringVar() ; pos1y = tk.StringVar()
-    pos2x = tk.StringVar() ; pos2y = tk.StringVar()
-    loc1x = tk.Entry(Frame, font=config.fonts_menu, width=15,textvariable=pos1x).grid(column=1,row=0)
-    loc1y = tk.Entry(Frame, font=config.fonts_menu, width=15,textvariable=pos1y).grid(column=2,row=0,padx=8)
-    loc2x = tk.Entry(Frame, font=config.fonts_menu, width=15,textvariable=pos2x).grid(column=1,row=1)
-    loc2y = tk.Entry(Frame, font=config.fonts_menu, width=15,textvariable=pos2y).grid(column=2,row=1)
-    confirm_btn = tk.Button(Frame,text="คำนวณ",command=lambda: returnHs(pos1x.get(),pos1y.get(),pos2x.get(),pos2y.get()),bg=config.confirm_btn, fg="#000", font=config.fonts_menu).grid(row=3,column=1,sticky=SE,pady=3)
-    result_text = tk.Label(calcs1,text="",bg=config.menu_bg,font=config.fonts_menu,fg="#fff")
-    result_text.pack(side=BOTTOM,pady=20)
-    
+    tell_loc1 = tk.Label(Frame, text="จุดที่ 1:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(
+        column=0, row=0, padx=8)
+    tell_loc2 = tk.Label(Frame, text="จุดที่ 2:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(
+        column=0, row=1)
+    pos1x = tk.StringVar()
+    pos1y = tk.StringVar()
+    pos2x = tk.StringVar()
+    pos2y = tk.StringVar()
+    loc1x = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos1x).grid(column=1, row=0)
+    loc1y = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos1y).grid(column=2, row=0, padx=8)
+    loc2x = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos2x).grid(column=1, row=1)
+    loc2y = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos2y).grid(column=2, row=1)
+    confirm_btn = tk.Button(Frame, text="คำนวณ",
+                            command=lambda: returnHs(pos1x.get(), pos1y.get(), pos2x.get(), pos2y.get()),
+                            bg=config.confirm_btn, fg="#000", font=config.fonts_menu).grid(row=3, column=1, sticky=SE,
+                                                                                           pady=3)
+    result_text = tk.Label(calcs1, text="", bg=config.menu_bg, font=config.fonts_menu, fg="#fff")
+    result_text.pack(side=BOTTOM, pady=20)
 
-def returnHs(x1,y1,x2,y2):
-    result = assets.calc.havershow(x1,y1,x2,y2)
-    result_text.configure(text=f"{assets.calc.havershow(x1,y1,x2,y2)} km")
-    
+
+def returnHs(x1, y1, x2, y2):
+    result = assets.calc.havershow(x1, y1, x2, y2)
+    result_text.configure(text=f"{assets.calc.havershow(x1, y1, x2, y2)} km")
+
+
 def gd_calc():
     gd_cal = tk.Tk()
     gd_cal.title("Geography Calculator :: Geography Map")
@@ -63,13 +73,13 @@ def gd_calc():
     gd_cal.resizable(0, 0)
     gd_cal.configure(background=config.menu_bg)
 
+
 def credit():
     credits = tk.Toplevel()
     credits.title("Credits :: คณะผู้จัดทำ")
     credits.geometry("800x500")
     credits.resizable(0, 0)
     credits.configure(background="#000")  # BG this dialogs
-    #messagebox.showinfo("Note", "อย่าลืมแก้หน้า Credit ต่อ")
 
     title1 = tk.Label(credits,
                       text="จัดทำโดย....",
@@ -117,6 +127,7 @@ def credit():
         bg="black",
         fg="white"
     ).place(anchor=CENTER, x=400, y=400)
+
 
 #####################
 #   Root screen     #
