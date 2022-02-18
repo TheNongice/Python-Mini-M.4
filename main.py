@@ -32,23 +32,23 @@ except ModuleNotFoundError:
 ################
 #  All screen  #
 ################
-def calc1():
+def haver_calc():
     global pos1x, pos2x, pos1y, pos2y, result_text
-    calcs1 = tk.Toplevel()
-    calcs1.title("Geography Calculator :: Distance Calculator")
-    calcs1.geometry("800x300")
-    calcs1.resizable(0, 0)
-    calcs1.configure(background=config.menu_bg)
-    Frame = tk.Frame(calcs1, bg=config.menu_button, bd="5")
+    haver = tk.Toplevel()
+    haver.title("Geography Calculator :: Distance Calculator")
+    haver.geometry("800x300")
+    haver.resizable(0, 0)
+    haver.configure(background=config.menu_bg)
+    Frame = tk.Frame(haver, bg=config.menu_button, bd="5")
     Frame.pack(pady=45)
     tell_loc1 = tk.Label(Frame, text="จุดที่ 1:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(
         column=0, row=0, padx=8)
     tell_loc2 = tk.Label(Frame, text="จุดที่ 2:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(
         column=0, row=1)
-    pos1x = tk.StringVar()
-    pos1y = tk.StringVar()
-    pos2x = tk.StringVar()
-    pos2y = tk.StringVar()
+    pos1x = tk.StringVar() # First point (x)
+    pos1y = tk.StringVar() # First point (y)
+    pos2x = tk.StringVar() # Second point (x)
+    pos2y = tk.StringVar() # Second point (y)
     loc1x = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos1x).grid(column=1, row=0)
     loc1y = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos1y).grid(column=2, row=0, padx=8)
     loc2x = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos2x).grid(column=1, row=1)
@@ -57,15 +57,10 @@ def calc1():
                             command=lambda: returnHs(pos1x.get(), pos1y.get(), pos2x.get(), pos2y.get()),
                             bg=config.confirm_btn, fg="#000", font=config.fonts_menu).grid(row=3, column=1, sticky=SE,
                                                                                            pady=3)
-    result_text = tk.Label(calcs1, text="", bg=config.menu_bg, font=config.fonts_menu, fg="#fff")
+    result_text = tk.Label(haver, text="", bg=config.menu_bg, font=config.fonts_menu, fg="#fff")
     result_text.pack(side=BOTTOM, pady=20)
 
-
-def returnHs(x1, y1, x2, y2):
-    result = assets.calc.havershow(x1, y1, x2, y2)
-    result_text.configure(text=f"{assets.calc.havershow(x1, y1, x2, y2)} km")
-
-
+########################################################################
 def gd_calc():
     gd_cal = tk.Tk()
     gd_cal.title("Geography Calculator :: Geography Map")
@@ -73,13 +68,14 @@ def gd_calc():
     gd_cal.resizable(0, 0)
     gd_cal.configure(background=config.menu_bg)
 
+######################################################################
 
 def credit():
     credits = tk.Toplevel()
     credits.title("Credits :: คณะผู้จัดทำ")
     credits.geometry("800x500")
     credits.resizable(0, 0)
-    credits.configure(background="#000")  # BG this dialogs
+    credits.configure(background="#000")
 
     title1 = tk.Label(credits,
                       text="จัดทำโดย....",
@@ -128,6 +124,11 @@ def credit():
         fg="white"
     ).place(anchor=CENTER, x=400, y=400)
 
+#########################################################################
+
+def returnHs(x1, y1, x2, y2):
+    result = assets.calc.havershow(x1, y1, x2, y2)
+    result_text.configure(text=f"{assets.calc.havershow(x1, y1, x2, y2)} km")
 
 #####################
 #   Root screen     #
@@ -142,7 +143,7 @@ icon_app = tk.PhotoImage(file="assets/icon.png")
 root.iconphoto(True, icon_app)
 pg_name = tk.Label(root, text="โปรแกรมคำนวณทางภูมิศาสตร์", font=(config.fonts_menu[0], 45), fg="#ffffff",
                    bg="#2D2926").pack(side=TOP, pady=25)
-btn = tk.Button(root, text="คำนวณระยะทางจุด 2 จุด", command=calc1, font=config.fonts_menu, fg="#ffffff",
+btn = tk.Button(root, text="คำนวณระยะทางจุด 2 จุด", command=haver_calc, font=config.fonts_menu, fg="#ffffff",
                 bg=config.menu_button, width=50).pack(pady=3)
 btn2 = tk.Button(root, text="คำนวณมาตราส่วนแผนที่ GD", command=gd_calc, font=config.fonts_menu, fg="#ffffff",
                  bg=config.menu_button, width=50).pack(pady=3)
