@@ -10,5 +10,3 @@ def havershow(x1,y1,x2,y2):
         return hs.haversine(loc1,loc2)
     except ValueError:
         messagebox.showerror("Error!","โปรดกรอกข้อมูลเป็นตัวเลขเท่านั้น!")
-def gd_ca():
-    pass
