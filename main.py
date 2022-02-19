@@ -45,10 +45,10 @@ def haver_calc():
         column=0, row=0, padx=8)
     tell_loc2 = tk.Label(Frame, text="จุดที่ 2:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(
         column=0, row=1)
-    pos1x = tk.StringVar() # First point (x)
-    pos1y = tk.StringVar() # First point (y)
-    pos2x = tk.StringVar() # Second point (x)
-    pos2y = tk.StringVar() # Second point (y)
+    pos1x = tk.StringVar()  # First point (x)
+    pos1y = tk.StringVar()  # First point (y)
+    pos2x = tk.StringVar()  # Second point (x)
+    pos2y = tk.StringVar()  # Second point (y)
     loc1x = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos1x)
     loc1y = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos1y)
     loc2x = tk.Entry(Frame, font=config.fonts_menu, width=15, textvariable=pos2x)
@@ -64,9 +64,10 @@ def haver_calc():
     result_text = tk.Label(haver, text="", bg=config.menu_bg, font=config.fonts_menu, fg="#fff")
     result_text.pack(side=BOTTOM, pady=20)
 
+
 ########################################################################
 def gd_calc():
-    global md_data,gd_data,md_input,gd_input
+    global md_data, gd_data, md_input, gd_input
     gd_cal = tk.Toplevel()
     gd_cal.title("Geography Calculator :: Geography Map")
     gd_cal.geometry("800x300")
@@ -74,18 +75,24 @@ def gd_calc():
     gd_cal.configure(background=config.menu_bg)
     md_data = tk.StringVar()
     gd_data = tk.StringVar()
-    Frame = tk.Frame(gd_cal,bg=config.menu_button)
+    Frame = tk.Frame(gd_cal, bg=config.menu_button)
     Frame.pack(pady=35)
-    tell_MD = tk.Label(Frame, text="MD :  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,row=0)
-    md_input = tk.Entry(Frame,textvariable=md_data,font=config.fonts_menu)
-    md_input.grid(column=1,row=0)
-    tell_GD = tk.Label(Frame, text="GD :  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,row=1)
-    gd_input = tk.Entry(Frame,textvariable=gd_data,font=config.fonts_menu)
-    gd_input.grid(column=1,row=1,pady=5)
-    tell_cm = tk.Label(Frame, text=" CM", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=2,row=0)
-    tell_km = tk.Label(Frame, text=" KM", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=2,row=1)
-    submit = tk.Button(gd_cal,text="แปลงค่าระยะทาง",font=config.fonts_menu, bg=config.confirm_btn,command=submit_gd).pack()
-    
+    tell_MD = tk.Label(Frame, text="MD :  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,
+                                                                                                            row=0)
+    md_input = tk.Entry(Frame, textvariable=md_data, font=config.fonts_menu)
+    md_input.grid(column=1, row=0)
+    tell_GD = tk.Label(Frame, text="GD :  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,
+                                                                                                            row=1)
+    gd_input = tk.Entry(Frame, textvariable=gd_data, font=config.fonts_menu)
+    gd_input.grid(column=1, row=1, pady=5)
+    tell_cm = tk.Label(Frame, text=" CM", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=2,
+                                                                                                         row=0)
+    tell_km = tk.Label(Frame, text=" KM", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=2,
+                                                                                                         row=1)
+    submit = tk.Button(gd_cal, text="แปลงค่าระยะทาง", font=config.fonts_menu, bg=config.confirm_btn,
+                       command=submit_gd).pack()
+
+
 ######################################################################
 
 def credit():
@@ -142,11 +149,12 @@ def credit():
         fg="white"
     ).place(anchor=CENTER, x=400, y=400)
 
+
 #########################################################################
 
 def returnHs(x1, y1, x2, y2):
     if (pos1x.get() == "") or (pos1y.get() == "") or (pos2x.get() == "") or (pos2y.get() == ""):
-        messagebox.showwarning("Error!","ไม่สามารถปล่อยให้ค่าใดหนึ่งว่าง")
+        messagebox.showwarning("Error!", "ไม่สามารถปล่อยให้ค่าใดหนึ่งว่าง")
         result_text.configure(text=f"ไม่สามารถแปลงหน่วยได้! [ERR-01]")
     else:
         try:
@@ -155,25 +163,27 @@ def returnHs(x1, y1, x2, y2):
         except:
             result_text.configure(text=f"ไม่สามารถแปลงหน่วยได้! [ERR-02]")
 
+
 def submit_gd():
     if (md_data.get() == "") and (gd_data.get() == ""):
-        messagebox.showerror("Error!","ไม่สามารถเว้นค่า")
+        messagebox.showerror("Error!", "ไม่สามารถเว้นค่า")
     elif (md_data.get() != "") and (gd_data.get() != ""):
-        md_input.delete(0,END)
-        gd_input.delete(0,END)
-        messagebox.showinfo("Nofcations","กรุณาใส่เพียงค่าใดค่าหนึ่ง")
+        md_input.delete(0, END)
+        gd_input.delete(0, END)
+        messagebox.showinfo("Nofcations", "กรุณาใส่เพียงค่าใดค่าหนึ่ง")
     elif md_data.get() != "":
         try:
             md_cal = float(md_data.get())
             print(md_cal)
         except ValueError:
-            messagebox.showerror("Error","โปรดกรอกค่าเป็นตัวเลขเท่านั้น")
+            messagebox.showerror("Error", "โปรดกรอกค่าเป็นตัวเลขเท่านั้น")
     elif gd_data.get() != "":
         try:
             gd_cal = float(gd_data.get())
             print(gd_cal)
         except ValueError:
-            messagebox.showerror("Error","โปรดกรอกค่าเป็นตัวเลขเท่านั้น")
+            messagebox.showerror("Error", "โปรดกรอกค่าเป็นตัวเลขเท่านั้น")
+
 
 #####################
 #   Root screen     #
