@@ -1,5 +1,9 @@
 import math
 import time
+from tkinter import PhotoImage, font
+from matplotlib import image
+
+from matplotlib.pyplot import text
 
 try:
     import tkinter as tk
@@ -33,14 +37,13 @@ except ModuleNotFoundError:
 #  All screen  #
 ################
 def haver_calc():
-    global pos1x, pos2x, pos1y, pos2y, result_text
+    global pos1x, pos2x, pos1y, pos2y, result_text, formula_img
     haver = tk.Toplevel()
     haver.title("Geography Calculator :: Distance Calculator")
-    haver.geometry("800x300")
+    haver.geometry("800x450")
     haver.resizable(0, 0)
     haver.configure(background=config.menu_bg)
     Frame = tk.Frame(haver, bg=config.menu_button, bd="5")
-    Frame.pack(pady=45)
     tell_loc1 = tk.Label(Frame, text="จุดที่ 1:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(
         column=0, row=0, padx=8)
     tell_loc2 = tk.Label(Frame, text="จุดที่ 2:  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(
@@ -61,8 +64,13 @@ def haver_calc():
                             command=lambda: returnHs(pos1x.get(), pos1y.get(), pos2x.get(), pos2y.get()),
                             bg=config.confirm_btn, fg="#000", font=config.fonts_menu).grid(row=3, column=1, sticky=SE,
                                                                                            pady=3)
-    result_text = tk.Label(haver, text="", bg=config.menu_bg, font=(config.fonts_menu[0],"26"), fg="#fff")
-    result_text.pack(side=BOTTOM, pady=20)
+    Frame.pack(pady=40)
+    Frame_result = tk.Frame(haver,bd="0",bg=config.menu_bg)
+    result_text = tk.Label(Frame_result, text="\n", bg=config.menu_bg, font=(config.fonts_menu[0],"26"), fg="#fff")
+    result_text.grid(row=0,column=0,pady=5)
+    formula_img = ImageTk.PhotoImage(Image.open("assets/formula.png"))
+    formula = tk.Label(Frame_result, image=formula_img).grid(row=1,column=0)
+    Frame_result.pack()
 
 
 ########################################################################
@@ -70,13 +78,13 @@ def gd_calc():
     global md_data, gd_data, md_input, gd_input, submit, reset_btn
     gd_cal = tk.Toplevel()
     gd_cal.title("Geography Calculator :: Geography Map")
-    gd_cal.geometry("800x300")
+    gd_cal.geometry("800x450")
     gd_cal.resizable(0, 0)
     gd_cal.configure(background=config.menu_bg)
     md_data = tk.StringVar()
     gd_data = tk.StringVar()
     Frame = tk.Frame(gd_cal, bg=config.menu_button)
-    Frame.pack(pady=35)
+    Frame.pack(pady=65)
     tell_MD = tk.Label(Frame, text="MD :  ", font=config.fonts_menu, fg="#fff", bg=config.menu_button).grid(column=0,
                                                                                                             row=0)
     md_input = tk.Entry(Frame, textvariable=md_data, font=config.fonts_menu)
@@ -93,6 +101,8 @@ def gd_calc():
     submit.pack()
     reset_btn = tk.Button(gd_cal, text="ล้างค่า", font=config.fonts_menu, bg="#B91646",command=reset_gd, fg="#fff", width=15,state=DISABLED)
     reset_btn.pack(pady=3)
+    resoultion = tk.Label(gd_cal,text="จากมาตราส่วน 1 : 50,000", font=(config.fonts_menu[0],"16"), bg=config.menu_bg, fg="#fff")
+    resoultion.pack(side=BOTTOM,padx=2,anchor=W)
 
 ######################################################################
 
@@ -151,10 +161,26 @@ def credit():
     ).place(anchor=CENTER, x=400, y=400)
 
 def howtouse():
+    global htu_sc, h1_img
     htu_sc = tk.Toplevel()
     htu_sc.geometry("800x500")
     htu_sc.configure(bg=config.menu_bg)
     htu_sc.resizable(0,0)
+    h1_img = ImageTk.PhotoImage(Image.open("assets/h1.png"))
+    h1_place = tk.Label(htu_sc,image=h1_img).place(x=0,y=0)
+    nextbtn = tk.Button(htu_sc,text="Next",font=config.fonts_menu,command=howtouse2).pack(side=BOTTOM,anchor=E)
+
+def howtouse2():
+    global h2_img
+    htu_sc.destroy()
+    htu_sc2 = tk.Toplevel()
+    htu_sc2.geometry("800x500")
+    htu_sc2.configure(bg=config.menu_bg)
+    htu_sc2.resizable(0,0)
+    h2_img = ImageTk.PhotoImage(Image.open("assets/h2.png"))
+    h2_place = tk.Label(htu_sc2,image=h2_img).place(x=0,y=0)
+    closebtn = tk.Button(htu_sc2,text="Understand",command=lambda: htu_sc2.destroy,font=config.fonts_menu)
+    closebtn.pack(side=BOTTOM,anchor=E)
 
 #########################################################################
 
@@ -165,7 +191,7 @@ def returnHs(x1, y1, x2, y2):
     else:
         try:
             result = assets.calc.havershow(x1, y1, x2, y2)
-            result_text.configure(text=f"{result:.4f} km",bg="#343A40")
+            result_text.configure(text=f"ผลลัพธ์จากการคำนวณได้\n{result:.4f} km",bg="#343A40")
         except:
             result_text.configure(text=f"ไม่สามารถแปลงหน่วยได้! [ERR-02]",bg="#343A40")
 
@@ -225,7 +251,7 @@ pg_name = tk.Label(root, text="โปรแกรมคำนวณทางภ�
                    bg="#343A40").pack(side=TOP, pady=25)
 btn = tk.Button(root, text="คำนวณระยะทางจุด 2 จุด", command=haver_calc, font=config.fonts_menu, fg="#ffffff",
                 bg=config.menu_button, width=50).pack(pady=3)
-btn2 = tk.Button(root, text="คำนวณมาตราส่วนแผนที่ GD", command=gd_calc, font=config.fonts_menu, fg="#ffffff",
+btn2 = tk.Button(root, text="คำนวณมาตราส่วนแผนที่", command=gd_calc, font=config.fonts_menu, fg="#ffffff",
                  bg=config.menu_button, width=50).pack(pady=3)
 btn3 = tk.Button(root, text="วิธีใช้โปรแกรม", command=howtouse, font=config.fonts_menu, fg="#ffffff", bg=config.menu_button,
                  width=50).pack(pady=3)
