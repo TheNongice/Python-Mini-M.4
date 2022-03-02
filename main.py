@@ -1,9 +1,5 @@
 import math
 import time
-from tkinter import PhotoImage, font
-from matplotlib import image
-
-from matplotlib.pyplot import text
 
 try:
     import tkinter as tk
@@ -161,25 +157,25 @@ def credit():
     ).place(anchor=CENTER, x=400, y=400)
 
 def howtouse():
-    global htu_sc, h1_img
+    global htu_sc, h1_img, h1
     htu_sc = tk.Toplevel()
-    htu_sc.geometry("800x500")
+    htu_sc.geometry("800x550")
     htu_sc.configure(bg=config.menu_bg)
     htu_sc.resizable(0,0)
+    h1 = tk.Frame(htu_sc,bg=config.menu_bg)
     h1_img = ImageTk.PhotoImage(Image.open("assets/h1.png"))
-    h1_place = tk.Label(htu_sc,image=h1_img).place(x=0,y=0)
-    nextbtn = tk.Button(htu_sc,text="Next",font=config.fonts_menu,command=howtouse2).pack(side=BOTTOM,anchor=E)
+    h1_place = tk.Label(h1,image=h1_img,bg=config.menu_bg).pack(fill="both",expand=True)
+    nextbtn = tk.Button(h1,text="ถัดไป",font=config.fonts_menu,command=howtouse2).pack(side=BOTTOM,anchor=E)
+    h1.pack()
 
 def howtouse2():
     global h2_img
-    htu_sc.destroy()
-    htu_sc2 = tk.Toplevel()
-    htu_sc2.geometry("800x500")
-    htu_sc2.configure(bg=config.menu_bg)
-    htu_sc2.resizable(0,0)
+    h1.destroy()
+    h2 = tk.Frame(htu_sc,bg=config.menu_bg)
+    h2.pack()
     h2_img = ImageTk.PhotoImage(Image.open("assets/h2.png"))
-    h2_place = tk.Label(htu_sc2,image=h2_img).place(x=0,y=0)
-    closebtn = tk.Button(htu_sc2,text="Understand",command=lambda: htu_sc2.destroy,font=config.fonts_menu)
+    h2_place = tk.Label(h2,image=h2_img,bg=config.menu_bg).pack(fill="both",expand=True)
+    closebtn = tk.Button(h2,text="เข้าใจแล้ว!",command=lambda: htu_sc.destroy(),font=config.fonts_menu)
     closebtn.pack(side=BOTTOM,anchor=E)
 
 #########################################################################
